@@ -6,7 +6,7 @@ shuffleButton.addEventListener("click", () => {
 });
 
 function shuffleImages(){
-    const images = document.querySelectorAll(".card ");
+    const images = document.querySelectorAll(".card_wrapper ");
 
     const positions = [];
 
@@ -26,3 +26,4 @@ function shuffleImages(){
         image.style.gridColumn = pos.col;
     });
 }
+
