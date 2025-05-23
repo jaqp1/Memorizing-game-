@@ -1,5 +1,9 @@
 const shuffleButton = document.getElementById("shuffleButton");
 const hideButton = document.getElementById("hideButton");
+const logScoreButton = document.getElementById("logScore");
+shuffleImages();
+document.querySelector(".submit_pane_container").style.opacity = "0"
+
 
 
 shuffleButton.addEventListener("click", () => {
@@ -54,56 +58,85 @@ function hideCards(){
     }
 }
 
-        let count = 0
-        let points = 0
-        let par = 0
-        let firstClicked = null
-        let firstClickedCard
-        let isProcessing = false;
-        document.querySelectorAll(".card").forEach((card) => {
-            card.addEventListener("click", () => {
-                // if (isProcessing) return;
-                const cardFront = card.querySelector(".card_front")
-                if (cardFront.classList.contains("excluded")) return;
-                card.classList.remove("hidden");
-                if (!firstClicked) {
-                    firstClicked = cardFront;
-                    firstClickedCard = card;
-                } else {
-                    const bg1 = getComputedStyle(firstClicked).backgroundImage;
-                    const bg2 = getComputedStyle(cardFront).backgroundImage;
-                    isProcessing = true; 
-                    if (bg1 === bg2) {
-                        const prevCard = firstClicked;
-                        const currentCard = cardFront;
-                        setTimeout(() => {
-                            prevCard.classList.add("excluded")
-                            currentCard.classList.add("excluded")
-                            points++;
-                            document.querySelector(".points").textContent = points.toString();
-                        }, 1000);
-                        
-                    } else {
-                        setTimeout(() => {
-                            firstClickedCard.classList.add("hidden")
-                            card.classList.add("hidden")
-                            
-                        },1500)
-                        
-                    }
-                    
-                    firstClicked = null;
-                }
-                // count++;
-                // let classesSet = new Set();
-                // if(!classesSet.has(card.classList) && count <=  2)
-                // {
-                //     classesSet.add(card.classList);
-                // }else{
+let count = 0
+let points = 0
+let par = 0
+let firstClicked = null
+let firstClickedCard
+let isProcessing = false;
+let moves = 0
+document.querySelectorAll(".card").forEach((card) => {
+    card.addEventListener("click", () => {
+        checkForPair(card);
+    })
 
-                // }
+})
 
-
-            })
+function checkForPair(card){
+    // if (isProcessing) return;
+    const cardFront = card.querySelector(".card_front")
+    if (cardFront.classList.contains("excluded")) return;
+    card.classList.remove("hidden");
+    if (!firstClicked) {
+        firstClicked = cardFront;
+        firstClickedCard = card;
+    } else {
+        const bg1 = getComputedStyle(firstClicked).backgroundImage;
+        const bg2 = getComputedStyle(cardFront).backgroundImage;
+        isProcessing = true; 
+        if (bg1 === bg2) {
+            moves++;
+            const prevCard = firstClicked;
+            const currentCard = cardFront;
+            setTimeout(() => {
+                prevCard.classList.add("excluded")
+                currentCard.classList.add("excluded")
+                points++;
+                document.querySelector(".points").textContent = points.toString();
+                document.querySelector(".moves").textContent = moves.toString();
+            }, 1500);
+            
+        } else {
+            moves++;
+            setTimeout(() => {
+                firstClickedCard.classList.add("hidden")
+                card.classList.add("hidden")
+                document.querySelector(".moves").textContent = moves.toString();
+            },1500)
+            
+        }
         
-        })
+        firstClicked = null;
+    }
+    // count++;
+    // let classesSet = new Set();
+    // if(!classesSet.has(card.classList) && count <=  2)
+    // {
+    //     classesSet.add(card.classList);
+    // }els
+    // }
+
+
+}
+
+function logScore(){
+    document.querySelectorAll(".card_wrapper").forEach((card) => {
+    card.classList.add("hide_cards")
+    });
+    setTimeout(() => {
+         document.querySelectorAll(".card_wrapper").forEach((card) => {
+            card.remove();
+         });
+         document.querySelector(".playground").classList.add("submit_pane")
+    },2000);
+   
+}
+
+logScoreButton.addEventListener("click", () => {
+    document.querySelector(".submit_pane_container").style.opacity = "1"
+    logScore();
+});
+
+function submitPane(){
+    
+} 

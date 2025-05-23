@@ -12,6 +12,16 @@
 </head>
 <body>
     <div class="playground"> 
+
+        <div class="submit_pane_container">
+            <h1 class="saving_header">Zapisz swój wynik</h1>
+            <form action="/submit" method="post">
+                <label for="username">Nazwa użytkownika</label><br><br>
+                <input type="text" id="username" name="username" required>
+            </form>
+        <br><br>
+        <button class="submit_button">Zapisz</button>
+        </div>
         <div class="card_wrapper">
             <div class="card">
                 <div class="card_front img img_0_0">
@@ -156,11 +166,18 @@
                 </div>
             </div>
         </div>
+        
+        
+
+   
     </div>
+    
     <div class="bottom_pane">
         <button id="shuffleButton">Shuffle</button>
         <button id="hideButton">Hide</button>
-        <h1 class="points">1234</h1>
+        <button id="logScore">Log</button>
+        <h1 class="points">0</h1>
+        <h1 class="moves">0</h1>
     </div>
     
 </body>
