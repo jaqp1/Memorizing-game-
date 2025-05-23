@@ -215,3 +215,9 @@ body{
     flex-direction: row;
     gap: 15px;
 }
+
+.excluded{
+    opacity: 0.5;
+    transition: opacity 1s ease;
+    pointer-events: none;
+}

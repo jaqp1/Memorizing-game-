@@ -28,12 +28,12 @@ function shuffleImages(){
     });
 }
 
-document.querySelectorAll(".card_wrapper").forEach((wrapper) => {
-    wrapper.addEventListener("click", () => {
-        const card = wrapper.querySelector(".card");
-        card.classList.toggle("hidden");
-    });
-});
+// document.querySelectorAll(".card_wrapper").forEach((wrapper) => {
+//     wrapper.addEventListener("click", () => {
+//         const card = wrapper.querySelector(".card");
+//         card.classList.toggle("hidden");
+//     });
+// });
 
 hideButton.addEventListener("click", () => {
     hideCards();
@@ -48,7 +48,7 @@ function hideCards(){
     wrappers.forEach((wrapper, index) => {
         setTimeout(() => {
             const card = wrapper.querySelector(".card");
-            card.classList.toggle("hidden");
+            card.classList.add("hidden");
         }, index * 200); 
     });
     }
@@ -57,31 +57,41 @@ function hideCards(){
         let count = 0
         let points = 0
         let par = 0
-        let firstClicked = null;
+        let firstClicked = null
+        let firstClickedCard
+        let isProcessing = false;
         document.querySelectorAll(".card").forEach((card) => {
             card.addEventListener("click", () => {
+                // if (isProcessing) return;
                 const cardFront = card.querySelector(".card_front")
-                
+                if (cardFront.classList.contains("excluded")) return;
+                card.classList.remove("hidden");
                 if (!firstClicked) {
                     firstClicked = cardFront;
-                    cardFront.style.border = '2px solid black'; 
+                    firstClickedCard = card;
                 } else {
                     const bg1 = getComputedStyle(firstClicked).backgroundImage;
                     const bg2 = getComputedStyle(cardFront).backgroundImage;
-
+                    isProcessing = true; 
                     if (bg1 === bg2) {
-                        points++;
-                        document.querySelector(".points").textContent = points.toString();
-                        firstClicked.style.opacity = "0.5";
-                        cardFront.style.opacity = "0.5"
+                        const prevCard = firstClicked;
+                        const currentCard = cardFront;
+                        setTimeout(() => {
+                            prevCard.classList.add("excluded")
+                            currentCard.classList.add("excluded")
+                            points++;
+                            document.querySelector(".points").textContent = points.toString();
+                        }, 1000);
+                        
                     } else {
                         setTimeout(() => {
-                            firstClicked.classList.add("hidden");
-                        cardFront.classList.add("hidden");
-                        },1000)
+                            firstClickedCard.classList.add("hidden")
+                            card.classList.add("hidden")
+                            
+                        },1500)
                         
                     }
-                    firstClicked.style.border = '';
+                    
                     firstClicked = null;
                 }
                 // count++;
