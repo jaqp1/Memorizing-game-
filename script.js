@@ -1,6 +1,7 @@
 const shuffleButton = document.getElementById("shuffleButton");
 const hideButton = document.getElementById("hideButton");
 const logScoreButton = document.getElementById("logScore");
+const submitButton = document.querySelector(".submit_button");
 let timerStarted = false;
 let timerId = null;
 
@@ -8,6 +9,19 @@ shuffleImages();
 document.querySelector(".submit_pane_container").style.opacity = "0"
 
 
+submitButton.addEventListener("click", (event) => {
+    event.preventDefault();
+    const username = document.getElementById("username").value;
+    if (username.trim() === "") {
+        alert("Please enter a valid username.");
+        return;
+    }
+    const moves = document.querySelector(".moves").textContent.split(": ")[1];
+    const time = document.querySelector(".time").textContent.split(": ")[1];
+    
+    saveScore(username, moves, time);
+    document.querySelector(".submit_pane_container").style.opacity = "0";
+});
 
 shuffleButton.addEventListener("click", () => {
     shuffleImages();
@@ -150,6 +164,7 @@ function logScore(){
 
 logScoreButton.addEventListener("click", () => {
     document.querySelector(".submit_pane_container").style.opacity = "1"
+    clearInterval(timerId);
     logScore();
 });
 
@@ -157,7 +172,7 @@ function submitPane(){
     
 } 
 
-
+const scores = [];
 function timer(){
     let time = 0;
     timerId = setInterval(() => {
@@ -168,5 +183,34 @@ function timer(){
 }
 
 function saveScore(username, moves, time){
-    
+    const nickName = username.trim();
+    const scoreData = {
+        name: nickName,
+        moves: moves,
+        time: time
+    };
+    axios.post("http://localhost:3000/api/scores", scoreData)
+
 }
+function loadScores() {
+    axios.get("http://localhost:3000/api/scores")
+        .then(response => {
+            const scores = response.data;
+            const scoreList = document.getElementById("scoreList");
+            scoreList.innerHTML = ""; // Clear previous scores
+            scores.forEach(score => {
+                const li = document.createElement("li");
+                li.textContent = `${score.name} - Moves: ${score.moves}, Time: ${score.time}s`;
+                scoreList.appendChild(li);
+            });
+        })
+        .catch(error => {
+            console.error("Error loading scores:", error);
+        });
+}
+
+
+
+
+
+window.addEventListener("DOMContentLoaded", loadScores);

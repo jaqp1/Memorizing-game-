@@ -7,10 +7,12 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-    <script src="script.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    
     <title>Document</title>
 </head>
 <body>
+    
     <div class="timer">
         <h1 class="time">Time: 0s</h1>
     </div>
@@ -23,7 +25,7 @@
                 <input type="text" id="username" name="username" required>
             </form>
         <br><br>
-        <button class="submit_button">Save</button>
+        <button class="submit_button" type="button">Save</button>
         </div>
         <div class="card_wrapper">
             <div class="card">
@@ -187,6 +189,12 @@
             <h1 class="moves">Moves: 0</h1>
         </div>
     </div>
-    
+    <div class="sideBar">
+        <h1>Top scores</h1>
+            <ul id="scoreList">
+                <!-- Scores will be populated here -->
+            </ul>
+    </div>
+    <script src="script.js" defer></script>
 </body>
 </html>

@@ -350,3 +350,32 @@ form{
     font-size: 1rem;
     margin: 5px
 }
+#shuffleButton:hover, #hideButton:hover, #logScore:hover{
+    border: rgb(218, 180, 107) 2px solid;
+}
+.sideBar{
+    position:absolute;
+    top: 5%;
+    left: 5%;
+    width: auto;
+    height: auto;
+    background-color: rgba(112, 90, 43,0.5);
+    padding: 15px;
+    border-radius: 5%;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.5);
+    font-family: "Roboto", sans-serif;
+    color: rgb(79, 56, 22);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+@media (max-width: 1250px) {
+   .sideBar{
+    position: inherit;
+   }
+   body{
+    overflow: scroll;
+   }
+}
