@@ -213,7 +213,7 @@ body{
 }
 .bottom_pane{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     gap: 15px;
     background-color: rgba(112, 90, 43,0.5);
     padding: 20px;
@@ -322,4 +322,31 @@ form{
     transition: opacity 2s ease 2s;
     width:auto;
     height: auto
+}
+.timer{
+    width: auto;
+    height: 10vh;
+    display: flex;
+    margin: 0 auto;
+    background-color: rgba(112, 90, 43,0.5);
+    padding: 10px;
+    border-radius: 5%;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    font-family: "Roboto", sans-serif;
+    color: rgb(79, 56, 22);
+}
+
+#shuffleButton, #hideButton, #logScore{
+    width: 100px;
+    height: 40px;
+    background-color: rgb(79, 56, 22);
+    color: rgb(218, 180, 107);
+    border-radius: 8px;
+    border: none;
+    font-family: "Roboto", sans-serif;
+    font-size: 1rem;
+    margin: 5px
 }

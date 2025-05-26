@@ -1,6 +1,9 @@
 const shuffleButton = document.getElementById("shuffleButton");
 const hideButton = document.getElementById("hideButton");
 const logScoreButton = document.getElementById("logScore");
+let timerStarted = false;
+let timerId = null;
+
 shuffleImages();
 document.querySelector(".submit_pane_container").style.opacity = "0"
 
@@ -74,12 +77,19 @@ document.querySelectorAll(".card").forEach((card) => {
 
 function checkForPair(card){
     // if (isProcessing) return;
+
+    if(!timerStarted){
+        timer();
+        timerStarted = true;
+    }
+    
     const cardFront = card.querySelector(".card_front")
     if (cardFront.classList.contains("excluded")) return;
     card.classList.remove("hidden");
     if (!firstClicked) {
         firstClicked = cardFront;
         firstClickedCard = card;
+        
     } else {
         const bg1 = getComputedStyle(firstClicked).backgroundImage;
         const bg2 = getComputedStyle(cardFront).backgroundImage;
@@ -92,8 +102,15 @@ function checkForPair(card){
                 prevCard.classList.add("excluded")
                 currentCard.classList.add("excluded")
                 points++;
-                document.querySelector(".points").textContent = points.toString();
-                document.querySelector(".moves").textContent = moves.toString();
+                document.querySelector(".points").textContent = `Score: ${points.toString()}`;
+                document.querySelector(".moves").textContent = `Moves: ${moves.toString()}`;
+                if(document.querySelectorAll(".excluded").length === 16){
+                    clearInterval(timerId);
+                    setTimeout(() => {
+                        document.querySelector(".submit_pane_container").style.opacity = "1"
+                        logScore();
+                    }, 500);
+                }
             }, 1500);
             
         } else {
@@ -101,7 +118,7 @@ function checkForPair(card){
             setTimeout(() => {
                 firstClickedCard.classList.add("hidden")
                 card.classList.add("hidden")
-                document.querySelector(".moves").textContent = moves.toString();
+                document.querySelector(".moves").textContent = `Moves: ${moves.toString()}`;
             },1500)
             
         }
@@ -115,7 +132,7 @@ function checkForPair(card){
     //     classesSet.add(card.classList);
     // }els
     // }
-
+    
 
 }
 
@@ -129,7 +146,6 @@ function logScore(){
          });
          document.querySelector(".playground").classList.add("submit_pane")
     },2000);
-   
 }
 
 logScoreButton.addEventListener("click", () => {
@@ -140,3 +156,17 @@ logScoreButton.addEventListener("click", () => {
 function submitPane(){
     
 } 
+
+
+function timer(){
+    let time = 0;
+    timerId = setInterval(() => {
+        time++;
+        document.querySelector(".time").textContent = `Time: ${time}s`;
+    },1000)
+    const maxTime = time;
+}
+
+function saveScore(username, moves, time){
+    
+}
