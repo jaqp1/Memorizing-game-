@@ -3,12 +3,14 @@ body{
     padding:0;
     display: flex;
     flex-direction: column;
-    gap: 5%;
+    gap: 3%;
     align-items: center;
     justify-content: center;
     height: 100vh;
     background-image: url("/assets/background.png");
     background-size: cover;
+    /* padding-top: 5%;
+    padding-bottom: 5%; */
 }
 
 .playground{
@@ -214,7 +216,7 @@ body{
 .bottom_pane{
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 10px;
     background-color: rgba(112, 90, 43,0.5);
     padding: 20px;
     border-radius: 5%;
@@ -223,6 +225,14 @@ body{
     font-family: "Roboto", sans-serif;
     text-align: center;
     color: rgb(79, 56, 22);
+    margin-bottom: 1%;
+}
+.score_moves{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
 }
 
 .excluded{
@@ -337,9 +347,10 @@ form{
     align-items: center;
     font-family: "Roboto", sans-serif;
     color: rgb(79, 56, 22);
+    margin-top: 1%;;
 }
 
-#shuffleButton, #hideButton, #logScore{
+#shuffleButton, #hideButton, #logScore, #topScoresDisplayButton{
     width: 100px;
     height: 40px;
     background-color: rgb(79, 56, 22);
@@ -350,7 +361,7 @@ form{
     font-size: 1rem;
     margin: 5px
 }
-#shuffleButton:hover, #hideButton:hover, #logScore:hover{
+#shuffleButton:hover, #hideButton:hover, #logScore:hover, #topScoresDisplayButton:hover{
     border: rgb(218, 180, 107) 2px solid;
 }
 .sideBar{
@@ -360,7 +371,8 @@ form{
     width: auto;
     height: auto;
     background-color: rgba(112, 90, 43,0.5);
-    padding: 15px;
+    padding: 10px;
+    padding-right: 40px;
     border-radius: 5%;
     backdrop-filter: blur(8px);
     box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.5);
@@ -373,9 +385,19 @@ form{
 }
 @media (max-width: 1250px) {
    .sideBar{
-    position: inherit;
+    opacity: 0;
    }
-   body{
-    overflow: scroll;
-   }
+}
+.points, .moves{
+    font-size: 1.5rem;
+    
+}
+
+.topScoresTable{
+    font-family: "Roboto", sans-serif;
+    color: rgb(79, 56, 22);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
 }

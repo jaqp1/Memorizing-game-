@@ -2,8 +2,10 @@ const shuffleButton = document.getElementById("shuffleButton");
 const hideButton = document.getElementById("hideButton");
 const logScoreButton = document.getElementById("logScore");
 const submitButton = document.querySelector(".submit_button");
+const topScoresDisplayButton = document.getElementById("topScoresDisplayButton");
 let timerStarted = false;
 let timerId = null;
+
 
 shuffleImages();
 document.querySelector(".submit_pane_container").style.opacity = "0"
@@ -21,6 +23,8 @@ submitButton.addEventListener("click", (event) => {
     
     saveScore(username, moves, time);
     document.querySelector(".submit_pane_container").style.opacity = "0";
+    loadScores();
+    window.location.reload();
 });
 
 shuffleButton.addEventListener("click", () => {
@@ -168,10 +172,6 @@ logScoreButton.addEventListener("click", () => {
     logScore();
 });
 
-function submitPane(){
-    
-} 
-
 const scores = [];
 function timer(){
     let time = 0;
@@ -209,6 +209,24 @@ function loadScores() {
         });
 }
 
+function showScoreTable(){
+    document.querySelector(".submit_pane_container").remove();
+    document.querySelectorAll(".card_wrapper").forEach((card) => {
+    card.classList.add("hide_cards")
+    });
+    setTimeout(() => {
+        document.querySelectorAll(".card_wrapper").forEach((card) => {
+        card.remove();
+        });
+        document.querySelector(".playground").appendChild(document.querySelector(".topScoreH1"));
+        document.querySelector(".playground").appendChild(document.querySelector("#scoreList"));
+        document.querySelector(".playground").classList.add("topScoresTable");
+    },2000);
+}
+
+topScoresDisplayButton.addEventListener("click", () => {
+    showScoreTable();
+});
 
 
 
