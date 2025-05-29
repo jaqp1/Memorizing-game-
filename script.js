@@ -9,6 +9,7 @@ let timerId = null;
 
 shuffleImages();
 document.querySelector(".submit_pane_container").style.opacity = "0"
+ document.querySelector(".submit_pane_container").classList.add("transition-opacity");
 
 
 submitButton.addEventListener("click", (event) => {
@@ -209,23 +210,37 @@ function loadScores() {
         });
 }
 
-function showScoreTable(){
-    document.querySelector(".submit_pane_container").remove();
-    document.querySelectorAll(".card_wrapper").forEach((card) => {
-    card.classList.add("hide_cards")
-    });
-    setTimeout(() => {
+let clickCount = 0;
+
+function toggleScoreTable() {
+    clickCount++;
+
+    const playground = document.querySelector(".playground");
+    const topScoreH1 = document.querySelector(".topScoreH1");
+    const scoreList = document.querySelector("#scoreList");
+
+    if (clickCount % 2 === 1) {
+        document.querySelector(".submit_pane_container")?.remove();
         document.querySelectorAll(".card_wrapper").forEach((card) => {
-        card.remove();
+            card.classList.add("hide_cards");
         });
-        document.querySelector(".playground").appendChild(document.querySelector(".topScoreH1"));
-        document.querySelector(".playground").appendChild(document.querySelector("#scoreList"));
-        document.querySelector(".playground").classList.add("topScoresTable");
-    },2000);
+
+        setTimeout(() => {
+            document.querySelectorAll(".card_wrapper").forEach((card) => {
+                card.remove();
+            });
+            playground.appendChild(topScoreH1);
+            playground.appendChild(scoreList);
+            playground.classList.add("topScoresTable");
+        }, 2000);
+    } else {
+        window.location.reload();
+    }
 }
 
+
 topScoresDisplayButton.addEventListener("click", () => {
-    showScoreTable();
+    toggleScoreTable();
 });
 
 
