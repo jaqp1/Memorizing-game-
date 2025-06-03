@@ -201,7 +201,7 @@ function loadScores() {
             scoreList.innerHTML = ""; // Clear previous scores
             scores.forEach(score => {
                 const li = document.createElement("li");
-                li.textContent = `${score.name} - Moves: ${score.moves}, Time: ${score.time}s`;
+                li.textContent = `${score.name} - Moves: ${score.moves}, Time: ${score.time}`;
                 scoreList.appendChild(li);
             });
         })
@@ -213,6 +213,10 @@ function loadScores() {
 let clickCount = 0;
 
 function toggleScoreTable() {
+
+    if(window.innerWidth > 1250){
+        return;
+    }
     clickCount++;
 
     const playground = document.querySelector(".playground");
@@ -224,7 +228,6 @@ function toggleScoreTable() {
         document.querySelectorAll(".card_wrapper").forEach((card) => {
             card.classList.add("hide_cards");
         });
-
         setTimeout(() => {
             document.querySelectorAll(".card_wrapper").forEach((card) => {
                 card.remove();
